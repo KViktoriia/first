@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Замовлення товару</title>
+</head>
+<body>
+    <h2 align="center">Форма замовлення товару</h2>
+
+    <form action="thanks.html" method="post" target="_blank">
+
+        <p><b>Номер банківського рахунку:</b><br>
+        <input type="text" name="account" size="30" maxlength="30" placeholder="Введіть номер рахунку"></p>
+
+        <p><b>Особистий номер користувача:</b><br>
+        <input type="text" name="user_id" size="20" maxlength="20" placeholder="Ваш ID"></p>
+
+        <p><b>Оберіть товар (можна кілька):</b><br>
+        <select name="products" size="5" multiple>
+            <option value="laptop">Ноутбук</option>
+            <option value="phone">Смартфон</option>
+            <option value="headphones">Навушники</option>
+            <option value="keyboard">Клавіатура</option>
+            <option value="mouse">Миша</option>
+            <option value="monitor">Монітор</option>
+        </select></p>
+
+        <p><b>Тип оплати:</b><br>
+        <input type="radio" name="payment" value="cash"> Готівковий розрахунок<br>
+        <input type="radio" name="payment" value="card" checked> Безготівковий розрахунок</p>
+
+        <p><b>Додаткова інформація, яку бажаєте отримати:</b><br>
+        <input type="checkbox" name="balance" value="yes"> Дані про залишки на рахунку<br>
+        <input type="checkbox" name="payments" value="yes"> Список останніх виплат</p>
+
+        <p><b>Ваші коментарі до замовлення:</b><br>
+        <textarea name="comments" rows="5" cols="60" wrap="virtual" placeholder="Введіть додаткову інформацію..."></textarea></p>
+
+        <p><b>Прикріпіть файл (наприклад, рахунок-фактуру або квитанцію):</b><br>
+        <input type="file" name="document" accept=".pdf,.jpg,.png,.docx"></p>
+
+        <p><input type="button" value="Показати сьогоднішню дату" onclick="alert(Date());"></p>
+
+        <p>
+            <input type="reset" value="Очистити форму">
+            <input type="submit" value="Відправити замовлення">
+        </p>
+    </form>
+</body>
+</html>
