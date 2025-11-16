@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Макет на Float</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .block {
+            margin-bottom: 3px;
+        }
+        
+        .block-blue { height: 150px; }
+        .block-brown { height: 100px; clear: both; }
+
+        .middle-container {
+            height: 400px;
+        }
+
+        .left-column { float: left; width: 37.5%; height: 100%; }
+        .block-yellow { float: left; width: calc(37.5% - 3px); margin-left: 3px; height: 100%; }
+        .block-grey { float: right; width: 25%; height: calc(100% + 153px); margin-top: -153px; }
+
+        .top-row { height: 50%; }
+        .block-aqua { float: left; width: 66.66%; height: 100%; }
+        .block-pink { float: left; width: calc(33.34% - 3px); margin-left: 3px; height: 100%; }
+        .block-green { height: calc(50% - 3px); clear: both; }
+
+        @media (max-width: 750px) {
+            .block, .left-column, .block-yellow, .block-grey, .block-aqua, .block-pink {
+                float: none;
+                width: 100%;
+                height: auto;
+                min-height: 100px;
+                margin: 0 0 3px 0;
+            }
+            .middle-container { height: auto; }
+            .block-grey { margin-top: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="block block-blue"></div>
+        <div class="middle-container clearfix">
+            <div class="block block-grey"></div>
+            <div class="left-column">
+                <div class="top-row clearfix">
+                    <div class="block block-aqua"></div>
+                    <div class="block block-pink"></div>
+                </div>
+                <div class="block block-green"></div>
+            </div>
+            <div class="block block-yellow"></div>
+        </div>
+        <div class="block block-brown"></div>
+    </div>
+</body>
+</html>

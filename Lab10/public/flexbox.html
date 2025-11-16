@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Макет на Flexbox</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            gap: 3px;
+        }
+
+        .block-blue { height: 150px; flex-shrink: 0; }
+        .block-brown { height: 100px; flex-shrink: 0; }
+        
+        .middle-container {
+            display: flex;
+            flex-grow: 1;
+            gap: 3px;
+        }
+        
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 37.5%;
+            gap: 3px;
+        }
+
+        .top-row {
+            display: flex;
+            flex-grow: 1;
+            gap: 3px;
+        }
+
+        .block-aqua { flex-basis: 66.66%; }
+        .block-pink { flex-basis: 33.33%; }
+        .block-green { flex-grow: 1; }
+        .block-yellow { flex-basis: 37.5%; }
+        .block-grey { flex-basis: 25%; }
+
+        @media (max-width: 750px) {
+            .wrapper { height: auto; }
+            .middle-container { flex-direction: column; }
+            .left-column, .top-row { flex-direction: column; }
+            .block { min-height: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="block block-blue"></div>
+        <div class="middle-container">
+            <div class="left-column">
+                <div class="top-row">
+                    <div class="block block-aqua"></div>
+                    <div class="block block-pink"></div>
+                </div>
+                <div class="block block-green"></div>
+            </div>
+            <div class="block block-yellow"></div>
+            <div class="block block-grey"></div>
+        </div>
+        <div class="block block-brown"></div>
+    </div>
+</body>
+</html>
