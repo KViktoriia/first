@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>React CDN - Моє Хобі</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        h1 { color: #61dafb; }
+        .component-box { border-bottom: 1px solid #eee; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class HobbyClass extends React.Component {
+            render() {
+                return (
+                    <div className="component-box">
+                        <h2>Класова компонента</h2>
+                        <p>Моє хобі — <strong>Книга</strong>. Я люблю читати та фантазувати.</p>
+                    </div>
+                );
+            }
+        }
+
+        const HobbyFunction = () => {
+            return (
+                <div className="component-box">
+                    <h2>Функціональна компонента</h2>
+                    <p>Окрім книг, я захоплююсь <strong>малюванням</strong>, бо це дає волю фантазії.</p>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <div className="container">
+                    <h1>Мої Хобі</h1>
+                    <HobbyClass />
+                    <HobbyFunction />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

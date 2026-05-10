@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя перша гра</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        #start-screen, #game-screen { margin-top: 50px; }
+        .hidden { display: none; }
+        
+        h1 { color: #d9534f; font-size: 48px; }
+        button { 
+            padding: 15px 30px; font-size: 20px; cursor: pointer; 
+            background-color: #5bc0de; color: white; border: none; border-radius: 5px; 
+        }
+
+        #grid { 
+            display: grid; grid-template-columns: repeat(5, 60px); 
+            gap: 10px; justify-content: center; margin: 20px auto; 
+        }
+        .cell { 
+            width: 60px; height: 60px; border: 1px solid #ccc; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; background: white; font-weight: bold;
+        }
+        .selected { background-color: #dff0d8 !important; color: #3c763d !important; }
+
+        table { margin: 30px auto; border-collapse: collapse; width: 50%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #5bc0de; color: white; }
+        .best-result { background-color: #fcf8e3; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <h1>Моя перша гра</h1>
+        <button id="btn-start">Почати гру</button>
+    </div>
+
+    <div id="game-screen" class="hidden">
+        <p>Залишилось часу: <span id="timer">60</span> сек.</p>
+        <div id="grid"></div>
+        <button id="btn-restart">Почати з початку</button>
+
+        <h3>Статистика</h3>
+        <table id="stats-table">
+            <thead>
+                <tr>
+                    <th>Назва гри</th>
+                    <th>Час (сек)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+<script>
+    $(document).ready(function() {
+        let timeLeft = 60;
+        let timerInterval;
+        let currentNumber = 1;
+        const maxNumber = 25; 
+        let gameCount = 0;
+        let results = [];
+
+        const fontSizes = ['14px', '18px', '22px', '26px', '30px'];
+
+        function getRandomColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16);
+        }
+
+        function startGame() {
+            $('#start-screen').addClass('hidden');
+            $('#game-screen').removeClass('hidden');
+            resetGame();
+        }
+
+        function resetGame() {
+            clearInterval(timerInterval);
+            timeLeft = 60;
+            currentNumber = 1;
+            $('#timer').text(timeLeft);
+            $('#grid').empty();
+            
+            let numbers = Array.from({length: maxNumber}, (_, i) => i + 1);
+            numbers.sort(() => Math.random() - 0.5);
+
+            numbers.forEach(num => {
+                let fontSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+                let color = getRandomColor();
+                let cell = $(`<div class="cell" style="font-size: ${fontSize}; color: ${color}">${num}</div>`);
+                
+                cell.click(function() {
+                    let clickedNum = parseInt($(this).text());
+                    
+                    if (clickedNum === currentNumber) {
+                        $(this).addClass('selected');
+                        
+                        if (currentNumber === maxNumber) {
+                            setTimeout(winGame, 100); 
+                        } else {
+                            currentNumber++;
+                        }
+                    } else {
+                        alert("Не вірна цифра");
+                    }
+                });
+                $('#grid').append(cell);
+            });
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                $('#timer').text(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Час вийшов! Спробуйте ще раз.");
+                    resetGame();
+                }
+            }, 1000);
+        }
+
+        function winGame() {
+            clearInterval(timerInterval);
+            gameCount++;
+            let timeSpent = 60 - timeLeft;
+            results.push({ name: `Гра ${gameCount}`, time: timeSpent });
+            
+            alert("Вітаємо! Ви пройшли гру!");
+            updateStats();
+            resetGame();
+        }
+
+        function updateStats() {
+            let tbody = $('#stats-table tbody');
+            tbody.empty();
+            
+            let minTime = Math.min(...results.map(r => r.time));
+
+            results.forEach(res => {
+                let rowClass = res.time === minTime ? 'best-result' : '';
+                tbody.append(`<tr class="${rowClass}"><td>${res.name}</td><td>${res.time} с.</td></tr>`);
+            });
+        }
+
+        $('#btn-start').click(startGame);
+        $('#btn-restart').click(resetGame);
+    });
+</script>
+</body>
+</html>
